@@ -1,0 +1,32 @@
+<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
+<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+
+[jmix:bootstrapComponent] > jmix:droppableContent, jmix:editorialContent mixin
+
+
+
+[jmix:bootstrapRowPredefined] > jmix:templateMixin  mixin
+ extends=jnt:bootstrapRow
+- layout (string, choicelist[resourceBundle,moduleImage='png']) = '4_8' autocreated < '2_10','3_9','4_8','4_4_4','6_6','8_4', '9_3','10_2','12'
+
+[jmix:bootstrapRowCustom] > jmix:templateMixin  mixin
+ extends=jnt:bootstrapRow
+- columns (string) = 'span4, span2 offset1, span3 offset2'
+
+[jnt:bootstrapRow] > jnt:content
+- rowType (string, choicelist[rowInitializer,resourceBundle]) = 'predefined' autocreated < 'predefined', 'custom'
+
+[jnt:bootstrapContainer] > jnt:content, jmix:bootstrapComponent
+orderable
+ - containerType (string, choicelist[resourceBundle]) = 'fixed' autocreated < 'fixed', 'fluid'
+ + * (jnt:bootstrapRow)
+
+[jnt:bootstrapNavbar] > jnt:content, mix:title, jmix:bootstrapComponent
+ - jcr:title (string) i18n
+ - startLevel (string, choicelist[resourceBundle]) = '0' autocreated < '-1','0', '1', '2','3'
+ - depth (string, choicelist[resourceBundle]) = '1' autocreated < '1', '2', '3', '4', '5'
+
+[jmix:bootstrapText] mixin
+ - text (string, richtext[ckeditor.customConfig='$context/modules/bootstrap-module/javascript/ckconfig.js']) i18n
+
+[jnt:bootstrapText] > jnt:content, jmix:bootstrapText, jmix:bootstrapComponent
